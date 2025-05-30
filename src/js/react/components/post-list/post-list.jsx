@@ -1,13 +1,16 @@
 import React from "react";
 import PostListItem from "../post-list-item/post-list-item.jsx";
-import "./post-list.css";
+import "./post-list.scss";
 
-const PostList = ({ posts }) => {
+const PostList = ({ posts, onDelete }) => {
 	const elements = posts.map((item) => {
 		const { id, ...itemProps } = item;
 		return (
 			<li key={id} className="list-group-item">
-				<PostListItem {...itemProps} />
+				<PostListItem
+					{...itemProps}
+					onDelete={() => onDelete(id)}
+				/>
 			</li>
 		)
 	});

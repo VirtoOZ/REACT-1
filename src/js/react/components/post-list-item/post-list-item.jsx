@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./post-list-item.css";
+import "./post-list-item.scss";
 
 export default class PostListItem extends Component {
 	constructor(props) {
@@ -8,26 +8,25 @@ export default class PostListItem extends Component {
 			important: false,
 			like: false
 		};
+
 		this.onImportant = this.onImportant.bind(this);
 		this.onLike = this.onLike.bind(this);
 	}
 
 	onImportant() {
 		this.setState(({ important }) => ({
-			important: !important
-		})
-		)
+			important: !important,
+		}))
 	}
 
 	onLike() {
 		this.setState(({ like }) => ({
-			like: !like
-		})
-		)
+			like: !like,
+		}))
 	}
 
 	render() {
-		const { label } = this.props;
+		const { label, onDelete } = this.props;
 		const { important, like } = this.state;
 		let classNames = "app-list-item d-flex justify-content-between";
 		if (important) {
@@ -48,6 +47,7 @@ export default class PostListItem extends Component {
 					<button
 						type="button"
 						className="btn-trash btr-sm"
+						onClick={onDelete}
 					>
 						<i className="fa fa-trash-o"></i>
 					</button>
