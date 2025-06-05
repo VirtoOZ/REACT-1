@@ -18,7 +18,7 @@ export default class PostStatusFilter extends Component {
 			return (
 				<button
 					key={name}
-					type="button"
+					type='button'
 					className={`btn ${clazz}`}
 					onClick={() => this.props.onFilterSelect(name)}
 				>

@@ -85,12 +85,12 @@ export default class App extends Component {
 		}
 		return items.filter((item) => {
 			return item.label.indexOf(term) > -1;
-		})
+		});
 	}
 
 	filterPosts(items, filter) {
 		if (filter === 'like') {
-			items.filter((item) => { item.like });
+			return items.filter((item) => item.like);
 		} else {
 			return items;
 		}
