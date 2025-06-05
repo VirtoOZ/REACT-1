@@ -11,10 +11,10 @@ const PostList = ({ posts, onDelete, onToggleImportant, onToggleLike }) => {
 					{...itemProps}
 					onDelete={() => onDelete(id)}
 					onToggleImportant={() => onToggleImportant(id)}
-					onToggleLike={() => onToggleLike(id,)}
+					onToggleLike={() => onToggleLike(id)}
 				/>
 			</li>
-		)
+		);
 	});
 
 	return (

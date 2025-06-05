@@ -16,12 +16,18 @@ export default class App extends Component {
 				{ label: 'Going to learn React', important: true, like: true, id: 'dsfsdf' },
 				{ label: 'Than is so good', important: false, like: false, id: 'dfgal' },
 				{ label: 'I need a breack...', important: false, like: false, id: 'lkdibg' }
-			]
+			],
+			term: '',
+			filter: 'all'
 		};
+
 		this.deleteItem = this.deleteItem.bind(this);
 		this.addItem = this.addItem.bind(this);
 		this.onToggleImportant = this.onToggleImportant.bind(this);
 		this.onToggleLike = this.onToggleLike.bind(this);
+		this.onUpdateSerch = this.onUpdateSerch.bind(this);
+		this.onFilterSelect = this.onFilterSelect.bind(this);
+
 		this.maxId = 4;
 	}
 
@@ -73,10 +79,37 @@ export default class App extends Component {
 		})
 	}
 
+	serchPosts(items, term) {
+		if (term.length === 0) {
+			return items;
+		}
+		return items.filter((item) => {
+			return item.label.indexOf(term) > -1;
+		})
+	}
+
+	filterPosts(items, filter) {
+		if (filter === 'like') {
+			items.filter((item) => { item.like });
+		} else {
+			return items;
+		}
+	}
+
+	onUpdateSerch(term) {
+		this.setState({ term });
+	}
+
+	onFilterSelect(filter) {
+		this.setState({ filter });
+	}
+
 	render() {
-		const { data } = this.state;
+		const { data, term, filter } = this.state;
 		const liked = data.filter((item) => item.like).length;
 		const allPosts = data.length;
+
+		const visiblePosts = this.filterPosts(this.serchPosts(data, term), filter);
 
 		return (
 			<div className="app" >
@@ -85,11 +118,15 @@ export default class App extends Component {
 					allPosts={allPosts}
 				/>
 				<div className="search-panel d-flex">
-					<SearchPanel />
-					<PostStatusFilter />
+					<SearchPanel
+						onUpdateSerch={this.onUpdateSerch} />
+					<PostStatusFilter
+						filter={filter}
+						onFilterSelect={this.onFilterSelect}
+					/>
 				</div>
 				<PostList
-					posts={this.state.data}
+					posts={visiblePosts}
 					onDelete={this.deleteItem}
 					onToggleImportant={this.onToggleImportant}
 					onToggleLike={this.onToggleLike}
